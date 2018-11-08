@@ -27,7 +27,7 @@ describe('SocketIOWorker', function () {
 
   describe('#constructor', function () {
     it('Should be an instance of base worker', function () {
-      var worker = new SocketIOWorker('server', {});
+      var worker = new SocketIOWorker('server', { path: '/v1' });
 
       worker.should.be.instanceof(BaseWorker);
     });

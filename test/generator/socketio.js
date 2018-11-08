@@ -11,27 +11,30 @@ module.exports = {
   onConnect: function(client, done){
     //向服务器发送消息
     //client 为客户端的连接实例
-    console.log('channels: ' + getChannels());
     client.emit('subscribe', getChannels());
+    // client.emit('subscribe', 'kline.1m@binance_btc_usdt,depth@binance_btc_usdt');
     // sendPing(client);
+    // send(client, done, 0);
     //回调函数
     done();
   },
-  //必选，向服务器民送消息时运行的代码
+  //必选，向服务器发送消息时运行的代码
   sendMessage: function(client, done) {
-    client.emit('subscribe', getErrorChannels());
-    done();
+    client.emit('subscribe', getChannels());
+    setTimeout(() => done(), 3000);
+    // client.emit('subscribe', getErrorChannels());
+    // done();
   },
   options : {
-    path: '/v1',
+    path: '/ws',
+    transports: ['websocket'],
   }
 };
 
-function sendPing(client) {
-  setTimeout(() => {
-    client.send('2');
-    sendPing(client);
-  }, 30000);
+function send(client, done, count) {
+  if (count >= 100) return done();
+  client.emit('subscribe', getChannels());
+  setTimeout(() => send(client, done, count + 1), 1000);
 }
 
 function getChannels(){

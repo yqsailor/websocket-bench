@@ -25,7 +25,9 @@ Tip: You may find it useful to increase the maximum number of open file descript
 
 Simple example (using Socket.IO by default):
 
-`websocket-bench -a 2500 -c 200 http://localhost:3000`
+`websocket-bench -a 2500 -c 200 http://localhost:6001`
+
+`node index.js -a 10 -c 1 -g test/generator/socketio.js http://localhost:6001 -v`
 
 Simple example (using Primus):
 
